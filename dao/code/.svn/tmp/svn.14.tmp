@@ -1,0 +1,13 @@
+package Integracion.Excepciones;
+
+
+public class ExcepcionIntegracion extends Exception {
+
+	private static final long serialVersionUID = 1L;
+
+	public ExcepcionIntegracion(String mensaje) {
+		
+		super(mensaje);
+	}
+
+}

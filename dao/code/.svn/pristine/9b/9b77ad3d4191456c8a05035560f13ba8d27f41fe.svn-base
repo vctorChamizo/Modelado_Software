@@ -1,0 +1,453 @@
+package Integracion.Cliente;
+
+import java.sql.*;
+import java.util.ArrayList;
+
+import Integracion.Excepciones.ExcepcionIntegracion;
+import Integracion.Transacciones.GestorTransacciones;
+import Negocio.Cliente.ClienteTrans;
+import Negocio.Cliente.EmpresaTrans;
+import Negocio.Cliente.ParticularTrans;
+
+
+public class ClienteDaoImp implements ClienteDao{
+	
+	@SuppressWarnings("resource")
+	public int crearCliente(ClienteTrans cliente) throws ExcepcionIntegracion {
+
+		PreparedStatement ps;
+		
+		int id_create = 0;
+		
+		try{
+			
+			Connection conexion = (Connection)GestorTransacciones.getInstancia().getTransaccion().getResource();
+			
+			
+			
+			ps = conexion.prepareStatement("INSERT INTO cliente (nombre, telefono, email, dni, activo) "
+			+ "VALUES(?, ?, ?, ?, 1)", Statement.RETURN_GENERATED_KEYS);
+			
+			ps.setString(1, cliente.getNombre());
+			ps.setInt(2, cliente.getTelefono());
+			ps.setString(3, cliente.getEmail());
+			ps.setString(4, cliente.getDni());
+			
+			ps.executeUpdate();
+			
+			ResultSet rs= ps.getGeneratedKeys();
+			while(rs.next()) id_create = rs.getInt(1);
+			
+			ps.close();
+			
+			if(cliente instanceof EmpresaTrans){
+							
+				
+				ps = conexion.prepareStatement("INSERT INTO empresa (idEmpresa, sector) "
+				+ "VALUES(?, ?)",Statement.RETURN_GENERATED_KEYS);
+				ps.setInt(1, id_create);
+				ps.setString(2, ((EmpresaTrans) cliente).getSector());
+				
+				ps.executeUpdate();
+				
+				rs= ps.getGeneratedKeys();
+				while(rs.next()) id_create = rs.getInt(1);
+				
+	
+				ps.close();
+			}
+			else{
+				
+				
+				
+				
+				ps = conexion.prepareStatement("INSERT INTO particular (idParticular, apellido) "
+				+ "VALUES(?, ?)",Statement.RETURN_GENERATED_KEYS);
+				ps.setInt(1, id_create);
+				ps.setString(2,((ParticularTrans) cliente).getApellido());
+				
+				ps.executeUpdate();
+				
+				rs= ps.getGeneratedKeys();
+				while(rs.next()) id_create = rs.getInt(1);
+				ps.close();
+			}
+
+		}
+
+		catch (SQLException e){	
+			
+			//throw new ExcepcionIntegracion("Error al crear el cliente.");
+		}
+		
+		return id_create;
+		 
+	}//crearProducto
+
+	
+	//************************************************************************************************************
+
+
+	@SuppressWarnings("resource")
+	public void modificarCliente(ClienteTrans cliente) throws ExcepcionIntegracion {
+		
+		PreparedStatement ps;
+		
+		try {
+			Connection conexion = (Connection)GestorTransacciones.getInstancia().getTransaccion().getResource();
+			ps = conexion.prepareStatement("UPDATE cliente SET nombre = ?, telefono = ?, email = ?, dni = ?, activo = ? WHERE id = ?");
+	 
+				
+			ps.setString(1, cliente.getNombre());
+			ps.setInt(2, cliente.getTelefono());
+			ps.setString(3, cliente.getEmail());
+			ps.setString(4, cliente.getDni());
+			ps.setBoolean(5, cliente.getActivo());
+			ps.setInt(6, cliente.getId());
+			ps.executeUpdate();
+			ps.close();
+			
+			if(cliente instanceof EmpresaTrans){
+				ps = conexion.prepareStatement("UPDATE empresa SET sector = ? WHERE idEmpresa = ?");
+				ps.setString(1, ((EmpresaTrans) cliente).getSector());
+				ps.setInt(2, cliente.getId());
+				ps.executeUpdate();
+				ps.close();
+				
+			}
+			else{
+				ps = conexion.prepareStatement("UPDATE particular SET apellido = ? WHERE idParticular = ?");
+				ps.setString(1, ((ParticularTrans) cliente).getApellido());
+				ps.setInt(2, cliente.getId());
+				ps.executeUpdate();
+				ps.close();
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			throw new ExcepcionIntegracion("Error al modificar el cliente.");
+
+		}
+
+		
+	}//modificar Producto
+
+	
+	//************************************************************************************************************
+/*
+	
+	public int borrarCliente(int id) throws ExcepcionIntegracion {
+		
+		int num = 0;
+		PreparedStatement ps;
+		
+		try {
+			Connection conexion = (Connection)GestorTransacciones.getInstancia().getTransaccion().getResource();
+			ps = conexion.prepareStatement("UPDATE cliente SET activo = 0 WHERE id = ?");
+		 
+			ps.setInt(1, id);
+			num = ps.executeUpdate();
+			ps.close();
+			
+		} 
+		
+		catch (SQLException e) {
+			
+			throw new ExcepcionIntegracion("Error al borrar el cliente.");
+
+		}
+		
+		return num;// > 0;
+		
+	}//borrarProducto
+	
+	
+	//************************************************************************************************************
+*/
+/*	
+	public boolean activarCliente(int id) throws ExcepcionIntegracion{
+		
+		int num = 0;
+		PreparedStatement ps;
+		
+		try {
+			
+			Connection conexion = (Connection)GestorTransacciones.getInstancia().getTransaccion().getResource();
+			ps = conexion.prepareStatement("UPDATE cliente SET activo = 1 WHERE id = ?");
+		 
+			ps.setInt(1, id);
+			num = ps.executeUpdate();
+			ps.close();
+		
+		} 
+		
+		catch (SQLException e) {
+			
+			throw new ExcepcionIntegracion("Error al activar el cliente.");
+
+		}
+		
+		return num > 0;
+	}*/
+	
+	
+	//************************************************************************************************************
+
+	
+	@Override
+	public ArrayList<ParticularTrans> listarParticular() throws ExcepcionIntegracion{
+		
+		ParticularTrans particular = null;
+		ArrayList<ParticularTrans> read = new ArrayList<ParticularTrans>();
+		PreparedStatement ps;
+		
+		try {
+			
+			
+			Connection conexion = (Connection)GestorTransacciones.getInstancia().getTransaccion().getResource();
+			ps = conexion.prepareStatement("SELECT * FROM particular, cliente WHERE particular.idParticular = cliente.id ORDER BY idParticular ");
+			 
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()){
+				
+				//particular = new ParticularTrans(rs.getInt("idParticular"), "irene", "123", "irene", "435", true, rs.getNString("apellido"));
+				
+				particular = new ParticularTrans(rs.getInt("idParticular"), rs.getString("nombre"),
+
+										rs.getInt("telefono"), rs.getString("email"),
+						
+										rs.getString("DNI"), rs.getBoolean("activo"), rs.getNString("apellido"));
+				
+				read.add(particular);
+			}
+			
+			ps.close();
+			
+			
+			
+		}catch(SQLException e) {
+			
+			throw new ExcepcionIntegracion("Error al listar los cliente particulares.");
+		} 
+		
+		return read;	
+	}
+	
+	
+	//************************************************************************************************************
+
+
+	@Override
+	public ArrayList<ClienteTrans> listarCliente() throws ExcepcionIntegracion{
+		
+		ClienteTrans cliente = null;
+		ArrayList<ClienteTrans> read = new ArrayList<ClienteTrans>();
+		PreparedStatement ps;
+		
+		try {
+			
+			
+			Connection conexion = (Connection)GestorTransacciones.getInstancia().getTransaccion().getResource();
+			ps = conexion.prepareStatement("SELECT * FROM cliente, "
+													+ "((SELECT idEmpresa AS id, sector AS atributo ,'empresa' AS tipo FROM empresa) union "
+													+ "(SELECT idParticular AS id, apellido AS atributo,'particular' AS tipo FROM particular)) AS tmp "
+										+ "WHERE cliente.id = tmp.id");
+			 
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()){
+				
+				String tipo = rs.getString("tipo");
+				
+				if(tipo.equals("empresa")) {
+					cliente = new EmpresaTrans(rs.getInt("id"), rs.getString("nombre"),
+	
+										rs.getInt("telefono"), rs.getString("email"),
+						
+										rs.getString("DNI"), rs.getBoolean("activo"),rs.getString("atributo"));
+				}
+				
+				else {
+					cliente = new ParticularTrans(rs.getInt("id"), rs.getString("nombre"), rs.getInt("telefono"), 
+							
+										rs.getString("email"), rs.getString("DNI"), 
+										
+										rs.getBoolean("activo"), rs.getString("atributo"));
+				}
+										
+				read.add(cliente);
+			}
+			
+			ps.close();
+		
+			
+			
+		}catch(SQLException e) {
+			
+			throw new ExcepcionIntegracion("Error al listar los clientes.");
+		} 
+		
+		return read;	
+	}
+	
+	
+	//************************************************************************************************************
+
+
+	@Override
+	public ArrayList<EmpresaTrans> listarEmpresa() throws ExcepcionIntegracion{
+		
+		EmpresaTrans empresa = null;
+		ArrayList<EmpresaTrans> read = new ArrayList<EmpresaTrans>();
+		PreparedStatement ps;
+		
+		try {
+			
+			
+			Connection conexion = (Connection)GestorTransacciones.getInstancia().getTransaccion().getResource();
+			ps = conexion.prepareStatement("SELECT * FROM empresa, cliente WHERE empresa.idEmpresa = cliente.id ORDER BY id");
+			 
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()){
+				
+				empresa = new EmpresaTrans(rs.getInt("id"), rs.getString("nombre"),
+	
+										rs.getInt("telefono"), rs.getString("email"),
+						
+										rs.getString("DNI"), rs.getBoolean("activo"), rs.getString("sector"));
+				
+				read.add(empresa);
+			}
+			
+			ps.close();
+		
+			
+			
+		}catch(SQLException e) {
+			
+			throw new ExcepcionIntegracion("Error al listar los clientes empresas.");
+		} 
+		
+		return read;	
+	}
+	
+	
+	//************************************************************************************************************
+
+
+	@Override
+	public ArrayList<ClienteTrans> buscarClientePorNombre(String nombre) {
+		
+		ClienteTrans cliente = null;
+		PreparedStatement ps;
+		ArrayList<ClienteTrans> listaCliente = new ArrayList<ClienteTrans>(); 
+		
+		
+		try {
+			
+			Connection conexion = (Connection)GestorTransacciones.getInstancia().getTransaccion().getResource();
+			ps = conexion.prepareStatement("SELECT * FROM cliente, "
+																+ "((SELECT idEmpresa AS id, sector AS atributo ,'empresa' AS tipo FROM empresa) union "
+																+ "(SELECT idParticular AS id, apellido AS atributo,'particular' AS tipo FROM particular)) AS tmp "
+											+ "WHERE cliente.id = tmp.id AND cliente.nombre = ?");
+			
+			ps.setString(1, nombre);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()){
+				
+				String tipo = rs.getString("tipo");
+				
+				if(tipo.equals("empresa")) {
+					
+					cliente = new EmpresaTrans(rs.getInt("id"), rs.getString("nombre"),
+	
+										rs.getInt("telefono"), rs.getString("email"),
+						
+										rs.getString("DNI"), rs.getBoolean("activo"),rs.getString("atributo"));
+				}
+				
+				else {
+					
+					cliente = new ParticularTrans(rs.getInt("id"), rs.getString("nombre"), rs.getInt("telefono"), 
+							
+										rs.getString("email"), rs.getString("DNI"), 
+										
+										rs.getBoolean("activo"), rs.getString("atributo"));
+				}
+				
+				
+				listaCliente.add(cliente);	
+			}
+			
+			ps.close();
+			
+			
+		}catch(SQLException e) {
+			
+			System.err.println("Error al buscar el cliente");
+			
+		}
+		
+		return listaCliente;
+	}
+	
+	
+	//************************************************************************************************************
+	
+
+	@Override
+	public ClienteTrans buscarClientePorId(int id) {
+		
+		ClienteTrans cliente = null;
+		PreparedStatement ps;
+		
+		try {
+			
+			Connection conexion = (Connection)GestorTransacciones.getInstancia().getTransaccion().getResource();
+			ps = conexion.prepareStatement("SELECT * FROM cliente, "
+																+ "((SELECT idEmpresa AS id, sector AS atributo ,'empresa' AS tipo FROM empresa) union "
+																+ "(SELECT idParticular AS id, apellido AS atributo,'particular' AS tipo FROM particular)) AS tmp "
+											+ "WHERE cliente.id = tmp.id AND cliente.id = ?");
+			
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()){
+				
+				if(rs.getString("tipo").equals("empresa")) {
+					cliente = new EmpresaTrans(rs.getInt("id"), rs.getString("nombre"),
+	
+						rs.getInt("telefono"), rs.getString("email"),
+		
+						rs.getString("dni"), rs.getBoolean("activo"),rs.getString("atributo"));
+				}
+				else
+				{
+					cliente = new ParticularTrans(rs.getInt("id"), rs.getString("nombre"),
+							
+							rs.getInt("telefono"), rs.getString("email"),
+			
+							rs.getString("dni"), rs.getBoolean("activo"),rs.getString("atributo"));
+				}
+			}
+			
+		//	ps.close();
+		
+			
+		}catch(SQLException e) {
+			
+			System.err.println("Error al buscar el cliente");
+			
+		}
+		
+		return cliente;	
+	}
+	
+	
+	
+}//ClienteDaoImp
+

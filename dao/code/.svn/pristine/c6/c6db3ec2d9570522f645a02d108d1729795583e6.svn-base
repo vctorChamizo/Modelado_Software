@@ -1,0 +1,5 @@
+package Presentacion.Comando.Comandos.Ventas;
+
+public class EliminarVenta {
+
+}

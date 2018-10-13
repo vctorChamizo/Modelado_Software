@@ -1,0 +1,76 @@
+/**
+ * 
+ */
+package Integracion.Venta;
+
+import java.util.ArrayList;
+
+import Negocio.Venta.VentaTrans;
+
+/** 
+ * <!-- begin-UML-doc -->
+ * <!-- end-UML-doc -->
+ * @author carlos
+ * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
+public class VentaDaoImp implements VentaDao {
+	/** 
+	 * (sin Javadoc)
+	 * @see VentaDao#crearVenta(VentaTrans venta)
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	public int crearVenta(VentaTrans venta) {
+		// begin-user-code
+		// TODO Apéndice de método generado automáticamente
+		return 0;
+		// end-user-code
+	}
+
+	/** 
+	 * (sin Javadoc)
+	 * @see VentaDao#buscarVentaPorId(int id)
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	public VentaTrans buscarVentaPorId(int id) {
+		// begin-user-code
+		// TODO Apéndice de método generado automáticamente
+		return null;
+		// end-user-code
+	}
+
+	/** 
+	 * (sin Javadoc)
+	 * @see VentaDao#borrarVenta(int id)
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	public void borrarVenta(int id) {
+		// begin-user-code
+		// TODO Apéndice de método generado automáticamente
+
+		// end-user-code
+	}
+
+	/** 
+	 * (sin Javadoc)
+	 * @see VentaDao#modificarVenta(int id)
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	public void modificarVenta(int id) {
+		// begin-user-code
+		// TODO Apéndice de método generado automáticamente
+
+		// end-user-code
+	}
+
+	/** 
+	 * (sin Javadoc)
+	 * @see VentaDao#listarVentas()
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	public ArrayList<VentaTrans> listarVentas() {
+		// begin-user-code
+		// TODO Apéndice de método generado automáticamente
+		return null;
+		// end-user-code
+	}
+}

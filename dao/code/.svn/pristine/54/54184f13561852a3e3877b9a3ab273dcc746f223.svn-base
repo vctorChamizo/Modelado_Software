@@ -1,0 +1,145 @@
+package Presentacion.Comando;
+
+import Presentacion.Comando.Comandos.Cliente.BorrarCliente;
+import Presentacion.Comando.Comandos.Cliente.BuscarCliente;
+import Presentacion.Comando.Comandos.Cliente.CrearCliente;
+import Presentacion.Comando.Comandos.Producto.ActivarProducto;
+import Presentacion.Comando.Comandos.Producto.BorrarProducto;
+import Presentacion.Comando.Comandos.Producto.BuscarProducto;
+import Presentacion.Comando.Comandos.Producto.CrearProducto;
+import Presentacion.Comando.Comandos.Producto.ModificarProducto;
+import Presentacion.Comando.Comandos.Vistas.IniciarVista;
+import Presentacion.Comando.Comandos.Vistas.PanelAdministracionVista;
+import Presentacion.Comando.Comandos.Vistas.PanelTiendaVista;
+import Presentacion.Comando.Comandos.Vistas.Cliente.ActualizarClienteVista;
+import Presentacion.Comando.Comandos.Vistas.Cliente.AnadirClienteVista;
+import Presentacion.Comando.Comandos.Vistas.Cliente.ClienteVista;
+import Presentacion.Comando.Comandos.Vistas.Cliente.EmpresaVista;
+import Presentacion.Comando.Comandos.Vistas.Cliente.ParticularVista;
+import Presentacion.Comando.Comandos.Vistas.Producto.ActualizarProductoVista;
+import Presentacion.Comando.Comandos.Vistas.Producto.AnadirProductoVista;
+import Presentacion.Comando.Comandos.Vistas.Producto.ProductoVista;
+import Presentacion.Comando.Comandos.Vistas.Ventas.AnadirProductoCarrito;
+
+
+public class FactoriaComandoImp extends FactoriaComando {
+
+	public Comando crearComando(String nombreComando) {
+		
+		switch(nombreComando) {
+		
+		
+			//VISTAS
+		
+				//Frame Principal
+			
+				case "iniciarVista":
+					
+					return new IniciarVista();
+					
+				case "cambiarPanelTiendaVista":
+					
+	 				return new PanelTiendaVista();
+	 				
+				case "cambiarPanelAdministracionVista":
+					
+					return new PanelAdministracionVista();
+					
+					
+				//Productos
+					
+				case "cambiarProductoVista":
+					
+					return new ProductoVista();
+					
+				case "cambiarAnadirProductoVista":
+					
+					return new AnadirProductoVista();
+					
+				case "cambiarActualizarProductoVista":
+				
+					return new ActualizarProductoVista();
+					
+					
+				//Clientes	
+				
+				case "cambiarClienteVista":
+					
+					return new ClienteVista();
+					
+				case "cambiarParticularVista":
+					
+					return new ParticularVista();
+					
+				case "cambiarEmpresaVista":
+					
+					return new EmpresaVista();
+							
+				case "cambiarAnadirClienteVista":
+					
+					return new AnadirClienteVista();
+					
+				case "cambiarActualizarClienteVista":
+					
+					return new ActualizarClienteVista();
+					
+					
+					
+				//Ventas
+					
+				case "AnadirProductoCarrito":
+					
+					return new AnadirProductoCarrito();
+
+					
+					
+		
+			//PRODUCTO --------------------------------------------------------
+		
+			case "BorrarProducto":
+				
+				return new BorrarProducto();
+				
+			case "CrearProducto":
+				
+				return new CrearProducto();
+				
+			case "ModificarProducto":
+		
+				return new ModificarProducto();
+				
+			case "BuscarProducto":
+				
+				return new BuscarProducto();
+				
+			case "ActivarProducto":
+				
+				return new ActivarProducto();
+				
+				
+			//CLIENTE --------------------------------------------------------
+
+			case "CrearCliente":
+				
+				return new CrearCliente();
+				
+			case "BuscarCliente":
+				
+				return new BuscarCliente();
+				
+			case "BorrarCliente":
+				
+				return new BorrarCliente();
+				
+			//VENTA --------------------------------------------------------
+
+				
+			default:
+				return null;
+		
+		}//switch
+		
+	}//crearComando
+
+}//FactoriaComandoImp
+

@@ -1,0 +1,42 @@
+package Negocio.Cliente;
+
+public class ParticularTrans extends ClienteTrans {
+
+	private String apellido;
+	
+	public ParticularTrans(int id, String nombre, String telefono, String email, String dni, boolean activo, String apellido) {
+		
+		super(id, nombre, telefono, email, dni, activo);
+		this.apellido=apellido;
+	}
+	
+	public ParticularTrans(String nombre, String telefono, String email, String dni, boolean activo, String apellido) {
+		
+		super(nombre, telefono, email, dni, activo);
+		this.apellido=apellido;
+	}
+
+<<<<<<< .mine
+	/**
+	 * @return the apellido
+	 */
+	public String getApellido() {
+=======
+	public String getApellido() {
+>>>>>>> .r1057
+		return apellido;
+	}
+
+<<<<<<< .mine
+	/**
+	 * @param apellido the apellido to set
+	 */
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+=======
+	public void setApellido(String atributo) {
+		this.apellido = atributo;
+>>>>>>> .r1057
+	}
+	
+}

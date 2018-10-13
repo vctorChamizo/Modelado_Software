@@ -1,0 +1,17 @@
+package Integracion.Cliente;
+
+import java.util.ArrayList;
+
+import Negocio.Cliente.ClienteTrans;
+import Negocio.Cliente.EmpresaTrans;
+
+
+public interface ClienteDao {
+
+	public ArrayList<ClienteTrans> listarClientes();
+	
+	public ClienteTrans buscarCliente(int id);
+	
+	public ArrayList<EmpresaTrans> listarEmpresas();
+	
+}

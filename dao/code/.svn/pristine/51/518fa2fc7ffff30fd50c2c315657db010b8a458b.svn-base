@@ -1,0 +1,171 @@
+/**
+ * 
+ */
+package Negocio.Cliente;
+
+/** 
+ * <!-- begin-UML-doc -->
+ * <!-- end-UML-doc -->
+ * @author Carlos
+ * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
+public class ClienteTrans {
+	/** 
+	 * <!-- begin-UML-doc -->
+	 * <!-- end-UML-doc -->
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	private int id;
+	/** 
+	 * <!-- begin-UML-doc -->
+	 * <!-- end-UML-doc -->
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	private String nombre;
+	/** 
+	 * <!-- begin-UML-doc -->
+	 * <!-- end-UML-doc -->
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	private String telefono;
+	/** 
+	 * <!-- begin-UML-doc -->
+	 * <!-- end-UML-doc -->
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	private String email;
+	/** 
+	 * <!-- begin-UML-doc -->
+	 * <!-- end-UML-doc -->
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	private String dni;
+
+	/** 
+	 * <!-- begin-UML-doc -->
+	 * <!-- end-UML-doc -->
+	 * @param id
+	 * @param nombre
+	 * @param proveedor
+	 * @param stock
+	 * @param precio
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	
+	private boolean activo;
+	
+	public ClienteTrans(int id, String nombre, String telefono, String email,
+	String dni, boolean activo) {
+		this.id=id;
+		this.nombre=nombre;
+		this.telefono=telefono;
+		this.email=email;
+		this.dni=dni;
+		this.activo=activo;
+	}
+
+	/** 
+	 * <!-- begin-UML-doc -->
+	 * <!-- end-UML-doc -->
+	 * @param nombre
+	 * @param proveedor
+	 * @param stock
+	 * @param precio
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	public ClienteTrans(String nombre, String telefono, String email,
+	String dni, boolean activo) {
+		this.nombre=nombre;
+		this.telefono=telefono;
+		this.email=email;
+		this.dni=dni;
+		this.activo=activo;
+	}
+
+	
+	
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @return the nombre
+	 */
+	public String getNombre() {
+		return nombre;
+	}
+
+	/**
+	 * @return the telefono
+	 */
+	public String getTelefono() {
+		return telefono;
+	}
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @return the dni
+	 */
+	public String getDni() {
+		return dni;
+	}
+
+	/**
+	 * @return the activo
+	 */
+	public boolean getActivo() {
+		return activo;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * @param nombre the nombre to set
+	 */
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	/**
+	 * @param telefono the telefono to set
+	 */
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
+	 * @param dni the dni to set
+	 */
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	/**
+	 * @param activo the activo to set
+	 */
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+	
+}

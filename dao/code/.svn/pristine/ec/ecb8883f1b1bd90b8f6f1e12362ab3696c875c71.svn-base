@@ -1,0 +1,27 @@
+package Negocio.Venta;
+
+public class LineaVenta {
+	
+	private int idProd;
+	
+	private int cantidad;
+	
+	private double precio;
+	
+	public int getIdProd() {
+		
+		return this.idProd;
+	}
+	
+	public int getCantidad() {
+		
+		return this.cantidad;
+		
+	}
+	
+	public double getPrecio() {
+		
+		return this.precio;
+	}
+
+}

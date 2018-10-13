@@ -1,0 +1,126 @@
+package Presentacion.Comando;
+
+import Presentacion.Comando.Comandos.Producto.BorrarProducto;
+import Presentacion.Comando.Comandos.Producto.BuscarProducto;
+import Presentacion.Comando.Comandos.Producto.CrearProducto;
+import Presentacion.Comando.Comandos.Producto.ModificarProducto;
+import Presentacion.Comando.Comandos.Vistas.IniciarVista;
+import Presentacion.Comando.Comandos.Vistas.PanelAdministracionVista;
+import Presentacion.Comando.Comandos.Vistas.PanelTiendaVista;
+import Presentacion.Comando.Comandos.Vistas.Producto.ActualizarProductoVista;
+import Presentacion.Comando.Comandos.Vistas.Producto.AnadirProductoVista;
+import Presentacion.Comando.Comandos.Vistas.Producto.ProductoVista;
+
+/** 
+ * <!-- begin-UML-doc -->
+ * <!-- end-UML-doc -->
+ * @author Carlos
+ * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
+public class FactoriaComandoImp extends FactoriaComando {
+	/** 
+	 * (sin Javadoc)
+	 * @see FactoriaComando#crearComando(String nombreComando)
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	public Comando crearComando(String nombreComando) {
+		
+		switch(nombreComando) {
+		
+		
+			//VISTAS
+		
+				//Frame Principal
+			
+				case "iniciarVista":
+					
+					return new IniciarVista();
+					
+				case "changePanelTienda":
+					
+	 				return new PanelTiendaVista();
+	 				
+				case "changePanelAdministracion":
+					
+					return new PanelAdministracionVista();
+					
+					
+				//Productos
+					
+				case "changeToProductos":
+					
+					return new ProductoVista();
+					
+				case "anadirProductosView":
+					
+					return new AnadirProductoVista();
+					
+				case "updateProductosView":
+				
+					return new ActualizarProductoVista();
+					
+					
+		
+			//PRODUCTO --------------------------------------------------------
+		
+			case "BorrarProducto":
+				
+				return new BorrarProducto();
+				
+			case "CrearProducto":
+				
+				return new CrearProducto();
+				
+			case "ModificarProducto":
+		
+				return new ModificarProducto();
+				
+			case "BuscarProducto":
+				
+				return new BuscarProducto();
+				
+		
+			//CLIENTES -------------------------------------------------------- falta implementar clases de Cliente
+				
+			case "BorrarCliente":
+				
+				//return new BorrarCliente();
+				
+			case "CrearCliente":
+				
+				//return new CrearCliente();
+				
+				
+			case "ModificarCliente":
+		
+				//return new ModificarCliente();
+				
+				
+			//VENTAS ----------------------------------------------------------- falta implementar clases de ventas
+				
+			case "BorrarVenta":
+				
+				//return new BorrarVenta();
+				
+			case "CrearVenta":
+				
+				//return new CrearVenta();
+				
+				
+			case "ModificarVenta":
+		
+				//return new ModificarVenta();
+				
+				
+			//------------------------------------------------------------------
+				
+			default:
+				
+				return null;
+		
+		}//switch
+		
+	}//crearComando
+
+}//FactoriaComandoImp
+

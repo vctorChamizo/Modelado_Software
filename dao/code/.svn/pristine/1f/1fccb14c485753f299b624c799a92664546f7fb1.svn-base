@@ -1,0 +1,16 @@
+package Presentacion.Comando.Comandos.Ventas;
+
+import Presentacion.Comando.Comando;
+import Presentacion.Contexto.Contexto;
+
+public class CrearVenta implements Comando{
+	
+	public Contexto ejecutar(Object datos) {
+		
+		
+		
+		
+		return null;
+	}
+
+}

@@ -1,0 +1,17 @@
+package Integracion.Transacciones;
+
+import Integracion.Excepciones.ExcepcionIntegracion;
+
+
+public interface Transaccion {
+
+
+	public void start() throws ExcepcionIntegracion;
+
+	public void commit() throws ExcepcionIntegracion;
+
+	public void rollback() throws ExcepcionIntegracion;
+	
+	public Object getResource();
+	
+}

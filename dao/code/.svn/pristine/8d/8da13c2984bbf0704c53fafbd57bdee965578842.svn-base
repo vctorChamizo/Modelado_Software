@@ -1,0 +1,48 @@
+/**
+ * 
+ */
+package Integracion.FactoriaIntegracion;
+
+import Integracion.Producto.ProductoDao;
+
+/** 
+ * <!-- begin-UML-doc -->
+ * <!-- end-UML-doc -->
+ * @author Marco Desantes e Irene Martin
+ * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
+public abstract class FactoriaIntegracion {
+	/** 
+	 * <!-- begin-UML-doc -->
+	 * <!-- end-UML-doc -->
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	private static FactoriaIntegracion factoria = null;
+
+	/** 
+	 * <!-- begin-UML-doc -->
+	 * <!-- end-UML-doc -->
+	 * @return
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	public static FactoriaIntegracion getInstancia() {
+		if(factoria == null) 
+			factoria = new FactoriaIntegracionImp();
+		 
+		return factoria;
+		 
+	} //Factoria integracion
+
+	/** 
+	 * <!-- begin-UML-doc -->
+	 * <!-- end-UML-doc -->
+	 * @return
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	public abstract ProductoDao crearProductoDao();
+	
+	
+	
+	// public abstract ClientesDao createClientesDao();
+	// public abstract VentasDao createVentasDao();
+}

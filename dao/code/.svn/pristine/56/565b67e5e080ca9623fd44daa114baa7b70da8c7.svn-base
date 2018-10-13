@@ -1,0 +1,49 @@
+/**
+ * 
+ */
+package Integracion.Venta;
+
+import java.util.ArrayList;
+
+import Negocio.Venta.VentaTrans;
+
+/** 
+ * <!-- begin-UML-doc -->
+ * <!-- end-UML-doc -->
+ * @author carlos
+ * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
+public interface VentaDao {
+	
+	/**
+	 * crea una venta en la base de datos con la informacion de un transfer
+	 * @param venta nueva venta a guardar
+	 * @return id de la nueva venta
+	 */
+	public int crearVenta(VentaTrans venta);
+
+	/**
+	 * busca una venta por su id
+	 * @param id id de la venta
+	 * @return venta con ese id
+	 */
+	public VentaTrans buscarVentaPorId(int id);
+
+	/**
+	 * borra la venta con ese id
+	 * @param id id de la venta
+	 */
+	public void borrarVenta(int id);
+
+	/**
+	 * Modifica los cambios de una venta
+	 * @param venta transfer de la venta
+	 */
+	public void modificarVenta(VentaTrans venta);
+
+	/**
+	 * devuelve una lista de todas las ventas
+	 * @return lista de todas las ventas
+	 */
+	public ArrayList<VentaTrans> listarVentas();
+}

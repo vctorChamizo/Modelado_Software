@@ -1,0 +1,118 @@
+package Presentacion.Vistas.Clientes;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JPanel;
+
+import Negocio.Cliente.ClienteTrans;
+import Presentacion.Contexto.Contexto;
+import Presentacion.Controlador.Controlador;
+import Presentacion.Vistas.VistaPrincipal.MainGUI;
+import Presentacion.Vistas.VistaPrincipal.MainGUI.typeCliente;
+import Presentacion.Vistas.VistaPrincipal.Panel_AceptarCancelar;
+
+public class ActualizarFrame_Clientes extends JPanel{
+	
+	private static final long serialVersionUID = -8498554541869969456L;
+	
+	ClienteTrans datos;
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param i
+	 * @param ob
+	 */
+	public ActualizarFrame_Clientes (typeCliente type, ClienteTrans datos){
+
+		this.datos = datos;
+		
+		initGUI();
+		
+	}//ActualiazrFrame_ClientesS
+
+
+	/**
+	 * Agrega todos los componentes Swing necesarios para poder visualizar la frame de actualizar un cliente.
+	 * 
+	 */
+	private void initGUI() {
+			
+		//**************************************************************************************************************************	
+			
+		//PANEL CENTRO
+						
+		this.setLayout(new BorderLayout(0,30));
+		this.setBackground(MainGUI.getBackgroundColor());
+		
+				
+		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+				
+			//PANEL PARA ANADIR INFORMACION
+					
+			JPanel nCenterPanel = new JPanel(new BorderLayout());
+				
+				nCenterPanel.setPreferredSize(new Dimension(0,400));
+
+				
+			//nCenterPanel.add(typeAddFrame, BorderLayout.CENTER);
+					
+					
+		this.add(nCenterPanel, BorderLayout.CENTER);
+					
+		//---------------------------------------------------------------------------------------------------------------------------------------------------
+					
+			//PANEL PARA LOS BOTONES --> ACEPTAR Y CANCELAR.
+				
+			JPanel sCenterPanel = new JPanel(new BorderLayout());
+			
+				sCenterPanel.setBackground(MainGUI.getBackgroundColor());
+				sCenterPanel.setPreferredSize(new Dimension(0,250));
+		
+							
+			sCenterPanel.add(new Panel_AceptarCancelar(
+					
+					//ACEPTAR
+					new ActionListener(){
+
+
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+							
+							//typeAddFrame.setClienteInformation(datos.getId());
+							
+							//Controlador.getInstancia().tratarPeticion(new Contexto("updateCliente", typeAddFrame.getClienteInformation()));
+							
+						}
+
+					}, 
+					
+					//CANCELAR
+					new ActionListener(){
+
+						@Override
+						public void actionPerformed(ActionEvent e) {
+						
+							Controlador.getInstancia().tratarPeticion(new Contexto("changeToClientes", null));
+					
+						}//actionPerformed
+				
+					}//new actionListener
+				), 
+					
+					
+					BorderLayout.NORTH);
+					
+			
+		this.add(sCenterPanel, BorderLayout.SOUTH);
+				
+				
+		}//initGUI
+				
+
+}//AnadirFrame_Clientes
+
+
+

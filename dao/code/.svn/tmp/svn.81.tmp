@@ -1,0 +1,12 @@
+package Negocio.Excepciones;
+
+
+public class ExcepcionNegocio extends Exception {
+
+	private static final long serialVersionUID = 1L;
+
+	public ExcepcionNegocio(String mensaje) {
+		
+		super(mensaje);
+	}
+}
