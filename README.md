@@ -34,7 +34,7 @@ In addition, the administrator will have access to the data of the employees reg
 
 #### 
  
-## Implementation
+## Technologies
 
 The implementation of this project was carried out using:
 
