@@ -15,6 +15,8 @@
 The implementation of this project was carried out using:
    - **Java** to implement the application's logic and integration sections.
    - **MySQL** to implement the data base logic.
+   
+
  
 ### Author
 The project has been done to [Victor Chamizo](https://github.com/vctorChamizo).
