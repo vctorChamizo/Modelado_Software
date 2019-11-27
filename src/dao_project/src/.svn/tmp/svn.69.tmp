@@ -1,0 +1,20 @@
+package Presentacion.Controlador;
+
+import Presentacion.Contexto.Contexto;
+
+public abstract class Controlador {
+
+	static private Controlador controlador=null;
+
+
+	public static Controlador getInstancia() {
+		if (Controlador.controlador==null)
+			Controlador.controlador=new ControladorImp();
+		
+		return controlador;
+	}
+
+
+	public abstract void tratarPeticion(Contexto contexto);
+
+}

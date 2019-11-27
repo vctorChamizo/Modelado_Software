@@ -1,0 +1,16 @@
+package Presentacion.Comando.Comandos.Main;
+
+import Presentacion.Comando.Comando;
+import Presentacion.Contexto.Contexto;
+
+public class IniciarVista implements Comando{
+
+	@Override
+	public Contexto ejecutar(Object datos) {
+		
+		return new Contexto("iniciar", datos);
+	}
+
+	
+
+}

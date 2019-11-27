@@ -1,0 +1,346 @@
+package Negocio.Cliente;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import Integracion.FactoriaIntegracion.FactoriaIntegracion;
+import Integracion.Querys.FactoriaQuery;
+import Integracion.Querys.Query;
+import Integracion.Cliente.ClienteDao;
+import Integracion.Excepciones.ExcepcionIntegracion;
+import Integracion.Transacciones.GestorTransacciones;
+import Integracion.Transacciones.Transaccion;
+import Negocio.Excepciones.ExcepcionNegocio;
+import Negocio.Venta.LineaVenta;
+
+public class ClienteSaImp implements ClienteSa{
+
+	@Override
+	public void crearCliente(ClienteTrans cliente) throws ExcepcionNegocio{
+		
+		try {
+			
+			ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+			Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+			transaccion.start();
+			ClienteTrans exist = clienteDao.buscarClientePorId(cliente.getId());
+			
+			if(exist == null)
+				clienteDao.crearCliente(cliente);
+			
+			else
+				if(!exist.getActivo())
+					clienteDao.activarCliente(cliente.getId());
+				
+				else{
+					transaccion.commit();
+					GestorTransacciones.getInstancia().eliminaTransaccion();
+					throw new ExcepcionNegocio("El cliente '" + cliente.getNombre() + "' ya existe.");
+				}
+		
+			transaccion.commit();
+			GestorTransacciones.getInstancia().eliminaTransaccion();
+		}
+
+		catch (ExcepcionIntegracion e) {
+			
+			System.out.println(e);
+			throw new ExcepcionNegocio(e.getMessage());
+		}
+		
+	}//crearCliente
+	
+	
+	//************************************************************************************************************
+
+
+	@Override
+	public void modificarCliente(ClienteTrans cliente) throws ExcepcionNegocio{
+		
+		try {
+			
+			ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+			
+			Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+			
+			transaccion.start();
+			
+			if(clienteDao.buscarClientePorId(cliente.getId()) != null)
+				clienteDao.modificarCliente(cliente);
+			
+			else {
+				transaccion.commit();
+				GestorTransacciones.getInstancia().eliminaTransaccion();
+				throw new ExcepcionNegocio("El cliente '" + cliente.getNombre() + "' no se puede modificar.");
+			}
+			
+			transaccion.commit();
+			GestorTransacciones.getInstancia().eliminaTransaccion();
+		}
+		
+		catch (ExcepcionIntegracion e) {
+			
+			throw new ExcepcionNegocio(e.getMessage());
+		}
+	}
+	
+	
+	//************************************************************************************************************
+
+
+	@Override
+	public ArrayList<ClienteTrans> buscarClientePorNombre(String datos) throws ExcepcionNegocio{
+		
+		ArrayList<ClienteTrans> lista;
+		
+		try {
+			ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+			Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+			
+			transaccion.start();
+			
+			lista = clienteDao.buscarClientePorNombre(datos);
+			
+			//transaccion.commit();
+			GestorTransacciones.getInstancia().eliminaTransaccion();
+			
+			if(lista == null) {
+	 
+				throw new ExcepcionNegocio("Error al buscar cliente.");
+			}
+			else if (lista.size() == 0) {
+				
+				throw new ExcepcionNegocio("No se han encontrado coincidencias con: " + datos);
+			}
+		}
+		catch (ExcepcionIntegracion e) {
+			
+			throw new ExcepcionNegocio(e.getMessage());
+		}
+		return lista;
+	}
+	
+	
+	//************************************************************************************************************
+
+
+	@Override
+	public void borrarCliente(int id) throws ExcepcionNegocio{
+		
+		try {
+			
+			ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+			Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+			
+			transaccion.start();
+			
+			if(clienteDao.buscarClientePorId(id) != null)
+				clienteDao.borrarCliente(id);
+			
+			else{
+				transaccion.commit();
+				GestorTransacciones.getInstancia().eliminaTransaccion();
+				throw new ExcepcionNegocio("No existe el cliente.");
+			}
+			
+			transaccion.commit();
+			GestorTransacciones.getInstancia().eliminaTransaccion();
+		}
+		
+		catch (ExcepcionIntegracion e) {
+			
+			throw new ExcepcionNegocio(e.getMessage());
+		}
+		
+	}//buscarCliente
+	
+	
+	//************************************************************************************************************
+
+
+	@Override
+	public void activarCliente(int id) throws ExcepcionNegocio{
+		
+		try {
+			
+			ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+			Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+			
+			transaccion.start();
+			
+			if(clienteDao.buscarClientePorId(id) != null)
+				clienteDao.activarCliente(id);
+			
+			else {
+				transaccion.commit();
+				GestorTransacciones.getInstancia().eliminaTransaccion();
+				throw new ExcepcionNegocio("No existe el cliente.");
+			}
+			
+			transaccion.commit();
+			GestorTransacciones.getInstancia().eliminaTransaccion();
+		}
+		
+		catch (ExcepcionIntegracion e) {
+			
+			throw new ExcepcionNegocio(e.getMessage());
+		}
+		
+	}//activarCliente
+	
+	//************************************************************************************************************
+
+
+	@Override
+	public ArrayList<ClienteTrans> listarCliente() throws ExcepcionNegocio{
+
+		ArrayList<ClienteTrans> lista;
+		
+		try {
+			
+			ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+			Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+			
+			transaccion.start();
+			
+			lista = clienteDao.listarCliente();
+			
+			//transaccion.commit();
+			GestorTransacciones.getInstancia().eliminaTransaccion();
+			
+			if(lista == null)
+				throw new ExcepcionNegocio("Error al listar los clientes.");
+		}
+		
+		catch (ExcepcionIntegracion e) {
+			
+			throw new ExcepcionNegocio(e.getMessage());
+		}
+		
+		return lista;
+		
+	}//listarCliente
+	
+	
+
+	//************************************************************************************************************
+
+
+	@Override
+	public ArrayList<ParticularTrans> listarParticular() throws ExcepcionNegocio{
+		
+		ArrayList<ParticularTrans> lista;
+		
+		try {
+			
+			ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+			Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+			
+			transaccion.start();
+			
+			lista = clienteDao.listarParticular();
+			
+			//transaccion.commit();
+			GestorTransacciones.getInstancia().eliminaTransaccion();
+			
+			if(lista == null)
+				throw new ExcepcionNegocio("Error al listar los clientes.");
+		
+		}
+		
+		catch (ExcepcionIntegracion e) {
+			
+			throw new ExcepcionNegocio(e.getMessage());
+		}
+		
+		return lista;
+		
+	}//listarParticular
+	
+	
+	//************************************************************************************************************
+
+
+	@Override
+	public ArrayList<EmpresaTrans> listarEmpresa() throws ExcepcionNegocio{
+		
+		ArrayList<EmpresaTrans> lista;
+		
+		try {
+			
+			ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+			Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+			transaccion.start();
+			
+			lista = clienteDao.listarEmpresa();
+			
+			//transaccion.commit();
+			GestorTransacciones.getInstancia().eliminaTransaccion();
+			
+			if(lista == null)
+				throw new ExcepcionNegocio("Error al listar los clientes.");
+		}
+
+		catch (ExcepcionIntegracion e) {
+			
+			throw new ExcepcionNegocio(e.getMessage());
+		}
+		
+		return lista;
+	
+	}//listarEmpresa
+
+
+	@Override
+	public ClienteTrans buscarClientePorId(int datos) throws ExcepcionNegocio {
+		
+		ClienteTrans cliente;
+		
+		try {
+			ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+			Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+			
+			transaccion.start();
+			
+			cliente = clienteDao.buscarClientePorId(datos);
+			
+			//transaccion.commit();
+			GestorTransacciones.getInstancia().eliminaTransaccion();
+			
+			if(cliente == null) {
+	 
+				throw new ExcepcionNegocio("Error al buscar cliente.");
+			}
+		
+		}
+		catch (ExcepcionIntegracion e) {
+			
+			throw new ExcepcionNegocio(e.getMessage());
+		}
+		return cliente;
+	}
+
+
+	@Override
+	public ArrayList<String> ClientesQueHanCompradoXProductosEnPrimerDia(int nProductos) throws ExcepcionNegocio {
+		Query query=FactoriaQuery.getInstancia().crearQuery("ClientesQueHanCompradoXProductosEnPrimerDia");
+		
+		try {
+		
+			return (ArrayList<String>) query.ejecutar(nProductos);
+		
+		} catch (ExcepcionIntegracion e) {
+			throw new ExcepcionNegocio(e.getMessage());
+		}
+	}
+
+
+	@Override
+	public HashMap<ClienteTrans, ArrayList<LineaVenta>> ClientesProductosEnFechaDeterminada(String fecha)
+			throws ExcepcionNegocio {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+}//ClienteSAImp

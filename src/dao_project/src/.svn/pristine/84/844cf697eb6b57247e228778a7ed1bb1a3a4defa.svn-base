@@ -1,0 +1,44 @@
+/**
+ * 
+ */
+package Integracion.FactoriaIntegracion;
+
+import Integracion.Producto.ProductoDao;
+import Integracion.Producto.ProductoDaoImp;
+
+/** 
+ * <!-- begin-UML-doc -->
+ * <!-- end-UML-doc -->
+ * @author Marco Desantes e Irene Martin
+ * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
+public class FactoriaIntegracionImp extends FactoriaIntegracion {
+	/** 
+	 * (sin Javadoc)
+	 * @see FactoriaIntegracion#crearProductoDao()
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	public ProductoDao crearProductoDao() {
+		
+		return new ProductoDaoImp();
+		
+	} //ProductoDao
+	
+	
+	
+	
+	/*public ClientesDao createClientesDao() {
+
+		return new ClientesDaoImp();
+	}
+
+	//------------------------------------------------------------------------------------------------------------------------------
+
+	
+	@Override
+	public VentasDao createVentasDao() {
+		
+		return new VentasDaoImp();
+		
+	}*/
+}

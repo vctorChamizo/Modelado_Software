@@ -1,0 +1,29 @@
+package Negocio.FactoriaNegocio;
+
+
+import Negocio.Cliente.ClienteSa;
+import Negocio.Producto.ProductoSa;
+
+
+public abstract class FactoriaNegocio {
+
+
+	private static FactoriaNegocio factoria;
+
+	
+	public static FactoriaNegocio getInstancia() {
+		
+		if (factoria == null) 
+			factoria = new FactoriaNegocioImp();
+		
+		return factoria;
+		
+	}
+
+	
+	
+	public abstract ProductoSa crearProductoSa();
+	
+	public abstract ClienteSa crearClienteSa();	
+	
+}

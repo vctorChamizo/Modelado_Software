@@ -1,0 +1,76 @@
+/**
+ * 
+ */
+package Integracion.Transacciones;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+/** 
+ * <!-- begin-UML-doc -->
+ * <!-- end-UML-doc -->
+ * @author carlos
+ * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
+public class TransaccionImp implements Transaccion {
+
+	Connection conexion = null;
+	
+	public void start() {
+		
+		try {
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			conexion = DriverManager.getConnection("jdbc:mysql://localhost/modelado_de_software","root","");
+			
+			conexion.setAutoCommit(false);
+			
+		} 
+	
+		catch (ClassNotFoundException | SQLException e) {
+			
+			conexion = null;
+		}
+		
+		
+	}
+
+	/** 
+	 * (sin Javadoc)
+	 * @see Transaccion#commit()
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	public void commit() {
+		try {
+			conexion.commit();
+		} catch (SQLException e) {
+			// TODO Bloque catch generado automáticamente
+			e.printStackTrace();
+		}
+	}
+
+	/** 
+	 * (sin Javadoc)
+	 * @see Transaccion#rollback()
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	public void rollback() {
+		try {
+			conexion.rollback();
+		} catch (SQLException e) {
+			// TODO Bloque catch generado automáticamente
+			e.printStackTrace();
+		}
+	}
+
+	/** 
+	 * (sin Javadoc)
+	 * @see Transaccion#getResource()
+	 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+	public Object getResource() {
+		return conexion;
+	}
+}

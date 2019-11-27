@@ -1,0 +1,13 @@
+package Negocio.Venta;
+
+public interface VentasSA {
+	
+	public void AbrirVenta();
+	
+	public void AnadirProductoVenta();
+	
+	public void EliminarVenta();
+	
+	public void ListarVenta();
+
+}

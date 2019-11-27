@@ -1,0 +1,27 @@
+package Negocio.Cliente;
+
+import java.util.ArrayList;
+
+import Negocio.Excepciones.ExcepcionNegocio;
+
+
+public interface ClienteSa {
+	
+	
+	public void crearCliente(ClienteTrans cliente) throws ExcepcionNegocio;	
+	
+	public void modificarCliente(ClienteTrans cliente) throws ExcepcionNegocio;
+
+	public ArrayList<ClienteTrans> buscarCliente(String datos)throws ExcepcionNegocio;
+	
+	public void borrarCliente(int id) throws ExcepcionNegocio ;
+
+	public ArrayList<ClienteTrans> listarCliente()throws ExcepcionNegocio;
+	
+	public ArrayList<ParticularTrans> listarParticular()throws ExcepcionNegocio;
+	
+	public ArrayList<EmpresaTrans> listarEmpresa()throws ExcepcionNegocio;
+	
+	public void activarCliente(int id) throws ExcepcionNegocio;
+
+}

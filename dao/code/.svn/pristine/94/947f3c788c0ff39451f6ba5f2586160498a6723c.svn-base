@@ -1,8 +1,0 @@
-package Integracion.Querys;
-
-import Integracion.Excepciones.ExcepcionIntegracion;
-
-public interface Query {
-
-	public Object ejecutar(Object parametro) throws ExcepcionIntegracion;
-}

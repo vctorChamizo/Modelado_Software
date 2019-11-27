@@ -1,0 +1,14 @@
+package Negocio.Venta;
+
+import java.util.ArrayList;
+
+import Negocio.Excepciones.ExcepcionNegocio;
+
+public interface VentasSA {
+	
+	
+	public void EliminarVenta(int id) throws ExcepcionNegocio;
+	
+	public ArrayList<VentaTrans> ListarVenta() throws ExcepcionNegocio;
+
+}

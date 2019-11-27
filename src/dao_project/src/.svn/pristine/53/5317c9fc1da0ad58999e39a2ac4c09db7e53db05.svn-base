@@ -1,0 +1,216 @@
+package Negocio.Cliente;
+
+import java.util.ArrayList;
+
+import Integracion.FactoriaIntegracion.FactoriaIntegracion;
+import Integracion.Cliente.ClienteDao;
+import Integracion.Transacciones.GestorTransacciones;
+import Integracion.Transacciones.Transaccion;
+import Negocio.Excepciones.ExcepcionNegocio;
+import Negocio.Producto.ProductoTrans;
+
+public class ClienteSaImp implements ClienteSa{
+
+	@Override
+	public void crearCliente(ClienteTrans cliente) throws ExcepcionNegocio {
+		
+		ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+		Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+		transaccion.start();
+		ClienteTrans exist = clienteDao.buscarCliente(cliente.getId());
+		
+		if(exist == null) {
+			if(exist instanceof EmpresaTrans){
+				clienteDao.crearCliente(cliente);
+		}
+		else{
+			if(!exist.getActivo())
+				clienteDao.activar();
+			else{
+				transaccion.commit();
+				GestorTransacciones.getInstancia().eliminaTransaccion();
+				throw new ExcepcionNegocio("El cliente '" + cliente.getNombre() + "' ya existe.");
+			}
+		}
+		transaccion.commit();
+		GestorTransacciones.getInstancia().eliminaTransaccion();
+			
+	}
+
+	@Override
+	public void modificarCliente(ClienteTrans cliente) throws ExcepcionNegocio {
+		
+		ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+		
+		Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+		
+		transaccion.start();
+		
+		if(clienteDao.buscarPorId(cliente.getId()) != null)
+			clienteDao.modificarCliente(cliente);
+		
+		else {
+			transaccion.commit();
+			GestorTransacciones.getInstancia().eliminaTransaccion();
+			throw new ExcepcionNegocio("El cliente '" + cliente.getNombre() + "' no se puede modificar.");
+		}
+		
+		transaccion.commit();
+		GestorTransacciones.getInstancia().eliminaTransaccion();
+		
+	}
+
+	@Override
+	public ArrayList<ClienteTrans> buscarCliente(String datos) throws ExcepcionNegocio {
+		
+		ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+		Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+		
+		transaccion.start();
+		
+		ArrayList<ClienteTrans> lista = clienteDao.buscarClientePorNombre(datos);
+		
+		transaccion.commit();
+		GestorTransacciones.getInstancia().eliminaTransaccion();
+		
+		if(lista == null) {
+			
+			//transaccion.commit();
+			//GestorTransacciones.getInstancia().eliminaTransaccion();
+			throw new ExcepcionNegocio("Error al buscar cliente.");
+		}
+		else if (lista.size() == 0) {
+			
+			throw new ExcepcionNegocio("No se han encontrado coincidencias con: " + datos);
+		}
+		
+		//transaccion.commit();
+		//GestorTransacciones.getInstancia().eliminaTransaccion();
+		
+		return lista;
+	}
+
+	@Override
+	public void borrarCliente(int id) throws ExcepcionNegocio {
+		ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+		Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+		
+		transaccion.start();
+		
+		if(clienteDao.buscarPorId(id) != null)
+			clienteDao.borrarCliente(id);
+		
+		else{
+			transaccion.commit();
+			GestorTransacciones.getInstancia().eliminaTransaccion();
+			throw new ExcepcionNegocio("No existe el cliente.");
+		}
+		
+		transaccion.commit();
+		GestorTransacciones.getInstancia().eliminaTransaccion();
+		
+	}
+
+	@Override
+	public ArrayList<ClienteTrans> listarCliente() throws ExcepcionNegocio {
+
+		ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+		Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+		
+		transaccion.start();
+		
+		ArrayList<ClienteTrans> lista = clienteDao.listarCliente();
+		
+		transaccion.commit();
+		GestorTransacciones.getInstancia().eliminaTransaccion();
+		
+		if(lista == null){
+			
+			//transaccion.commit();
+			//GestorTransacciones.getInstancia().eliminaTransaccion();
+			throw new ExcepcionNegocio("Error al listar los clientes.");
+		}
+		
+		//transaccion.commit();
+		//GestorTransacciones.getInstancia().eliminaTransaccion();
+		
+		return lista;
+		
+	}
+
+	@Override
+	public void activarCliente(int id) throws ExcepcionNegocio {
+		ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+		Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+		
+		transaccion.start();
+		
+		if(clienteDao.buscarPorId(id) != null)
+			clienteDao.activarCliente(id);
+		
+		else {
+			transaccion.commit();
+			GestorTransacciones.getInstancia().eliminaTransaccion();
+			throw new ExcepcionNegocio("No existe el cliente.");
+		}
+		
+		transaccion.commit();
+		GestorTransacciones.getInstancia().eliminaTransaccion();
+		
+	}
+
+	@Override
+	public ArrayList<ParticularTrans> listarParticular() throws ExcepcionNegocio {
+		
+		ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+		Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+		
+		transaccion.start();
+		
+		ArrayList<ParticularTrans> lista = clienteDao.listarParticular();
+		
+		transaccion.commit();
+		GestorTransacciones.getInstancia().eliminaTransaccion();
+		
+		if(lista == null){
+			
+			//transaccion.commit();
+			//GestorTransacciones.getInstancia().eliminaTransaccion();
+			throw new ExcepcionNegocio("Error al listar los clientes.");
+		}
+		
+		//transaccion.commit();
+		//GestorTransacciones.getInstancia().eliminaTransaccion();
+		
+		return lista;
+		
+	}
+
+	@Override
+	public ArrayList<EmpresaTrans> listarEmpresa() throws ExcepcionNegocio {
+		
+		ClienteDao clienteDao = FactoriaIntegracion.getInstancia().crearClienteDao();
+		Transaccion transaccion = GestorTransacciones.getInstancia().nuevaTransaccion();
+		
+		transaccion.start();
+		
+		ArrayList<EmpresaTrans> lista = clienteDao.listarEmpresa();
+		
+		transaccion.commit();
+		GestorTransacciones.getInstancia().eliminaTransaccion();
+		
+		if(lista == null){
+			
+			//transaccion.commit();
+			//GestorTransacciones.getInstancia().eliminaTransaccion();
+			throw new ExcepcionNegocio("Error al listar los clientes.");
+		}
+		
+		//transaccion.commit();
+		//GestorTransacciones.getInstancia().eliminaTransaccion();
+		
+		return lista;
+	}
+	
+
+}

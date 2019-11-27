@@ -1,0 +1,107 @@
+package Presentacion.Vistas.Clientes;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JPanel;
+
+import Presentacion.Contexto.Contexto;
+import Presentacion.Controlador.Controlador;
+import Presentacion.Vistas.VistaPrincipal.MainGUI;
+import Presentacion.Vistas.VistaPrincipal.MainGUI.typeCliente;
+import Presentacion.Vistas.VistaPrincipal.Panel_AceptarCancelar;
+
+public class AnadirFrame_Clientes extends JPanel{
+	
+	private static final long serialVersionUID = -7806116490507145678L;
+	
+	/**
+	 * COntructor
+	 * 
+	 * @param type
+	 */
+	public AnadirFrame_Clientes (typeCliente type){
+		
+		initGUI();
+		
+	}
+
+	/**
+	 * Agrega todos los componentes Swing necesarios para poder visualizar la frame de anadir un cliente.
+	 * 
+	 */
+	private void initGUI() {
+			
+		//**************************************************************************************************************************	
+			
+		//PANEL CENTRO
+						
+		this.setLayout(new BorderLayout(0,30));
+		this.setBackground(MainGUI.getBackgroundColor());
+		
+				
+		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+				
+			//PANEL PARA ANADIR INFORMACION
+					
+			JPanel nCenterPanel = new JPanel(new BorderLayout());
+				
+				nCenterPanel.setPreferredSize(new Dimension(0,400));			
+				
+				
+			//nCenterPanel.add(AddFrame, BorderLayout.CENTER);
+					
+					
+		this.add(nCenterPanel, BorderLayout.CENTER);
+					
+		//---------------------------------------------------------------------------------------------------------------------------------------------------
+					
+			//PANEL PARA LOS BOTONES --> ACEPTAR Y CANCELAR.
+				
+			JPanel sCenterPanel = new JPanel(new BorderLayout());
+			
+				sCenterPanel.setBackground(MainGUI.getBackgroundColor());
+				sCenterPanel.setPreferredSize(new Dimension(0,250));
+		
+							
+			sCenterPanel.add(new Panel_AceptarCancelar(
+					
+					//ACEPTAR
+					new ActionListener(){
+
+
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+							
+							//Controlador.getInstancia().tratarPeticion(new Contexto("addCliente", AddFrame.getClienteInformation()));
+							
+						}
+
+					}, 
+					
+					//CANCELAR
+					new ActionListener(){
+
+						@Override
+						public void actionPerformed(ActionEvent e) {
+						
+							Controlador.getInstancia().tratarPeticion(new Contexto("changeToClientesParticular", null));
+					
+						}//actionPerformed
+				
+					}//new actionListener
+				), 
+					
+				BorderLayout.NORTH);
+					
+			
+		this.add(sCenterPanel, BorderLayout.SOUTH);
+				
+				
+		}//initGUI
+
+				
+
+}//AnadirFrame_Clientes

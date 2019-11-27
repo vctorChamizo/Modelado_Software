@@ -1,0 +1,21 @@
+package Integracion.Venta;
+
+import java.util.ArrayList;
+
+import Integracion.Excepciones.ExcepcionIntegracion;
+import Negocio.Venta.VentaTrans;
+
+public interface VentaDao {
+
+	public int crearVenta(VentaTrans venta) throws ExcepcionIntegracion;
+
+	public VentaTrans buscarVentaPorId(int id) throws ExcepcionIntegracion;
+
+	public void borrarVenta(int id) throws ExcepcionIntegracion;
+
+	public void modificarVenta(VentaTrans venta) throws ExcepcionIntegracion;
+
+	public void modificarVenta(VentaTrans venta) throws ExcepcionIntegracion;
+
+	public ArrayList<VentaTrans> listarVentas() throws ExcepcionIntegracion;
+}

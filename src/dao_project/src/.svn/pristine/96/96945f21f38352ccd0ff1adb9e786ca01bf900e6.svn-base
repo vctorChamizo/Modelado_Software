@@ -1,0 +1,105 @@
+package Integracion.Querys;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import Integracion.Excepciones.ExcepcionIntegracion;
+import Integracion.Transacciones.GestorTransacciones;
+import Negocio.Venta.LineaVenta;
+
+public class ClientesProductosEnFechaDeterminada implements Query {
+
+	@Override
+	public Object ejecutar(Object parametro) throws ExcepcionIntegracion {
+		
+		try {
+			
+			GestorTransacciones.getInstancia().nuevaTransaccion();
+			Connection conexion=(Connection) GestorTransacciones.getInstancia().getTransaccion().getResource();
+			
+			Date date = stringToSQLDate((String) parametro);
+			
+			//Con esta primera consulta sacamos a todos los clientes que han comprado en la fecha solicitada.
+			PreparedStatement ps = conexion.prepareStatement("SELECT cliente.id FROM cliente"
+															+ "	WHERE cliente.id = venta.cliente "
+															+ "AND venta.fecha = ?");
+			ps.setDate(1, date);
+			
+			ResultSet rs =ps.executeQuery(); //lo ejecutamos.
+			
+			ArrayList<String>clientes= new ArrayList<String>(); //hacemos un array de clientes.
+			
+			//HashMap para cada cliente introducir su linea de venta
+			HashMap<String, ArrayList<LineaVenta>> vnt = new HashMap<String, ArrayList<LineaVenta>>();
+			
+			
+			
+			while(rs.next()) { //Para cada cliente sacado en la consulta anterior vamos añadiendolo al arraylist 
+				//y vamos buscando su venta en ese dia.
+				
+				
+				clientes.add(rs.getString(1));
+				
+				//selecionamos la linea de venta de cada uno de ellos.
+				PreparedStatement ps2 = conexion.prepareStatement("SELECT linea_de_venta.venta "
+																+ "FROM linea_de_venta, venta "
+																+ "WHERE linea_de_venta.venta = venta.id");
+				
+				ResultSet prod = ps2.executeQuery();//Ejecutamos la segunda consulta
+				
+				ArrayList<LineaVenta> lv = new ArrayList<LineaVenta>(); //ArrayList de la linea de venta de cada cliente
+				
+				while(prod.next()) {
+					
+					lv.add(prod.getInt(1), null); //Los vamos añadiendo
+				}
+				
+				vnt.put(rs.getString(1), lv); //Para cada cliente(clave) añadimos su linea de venta al hashmap
+				
+				prod.close();
+			}
+			rs.close();
+			
+			return vnt;
+				
+		} catch (SQLException e) {
+			
+			
+			throw new ExcepcionIntegracion("Error en la consulta");
+		}
+		
+	}
+
+	/**
+	 * transforma string en java.sql.Date
+	 * @param fecha
+	 * @return
+	 * @throws ExcepcionIntegracion 
+	 */
+	private Date stringToSQLDate(String fecha){
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
+		java.util.Date date=null;
+		
+		try {
+			
+			date = formatter.parse(fecha);
+		} 
+		
+		catch (ParseException e) {
+
+			return null;
+		}
+		
+		return new Date(date.getTime());
+		
+	}//stringToSQLDate
+
+}

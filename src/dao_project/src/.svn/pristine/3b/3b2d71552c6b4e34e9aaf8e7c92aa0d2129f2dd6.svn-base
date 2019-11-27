@@ -1,0 +1,11 @@
+package Integracion.Querys;
+
+public class ClientesProductosEnFechaDeterminada implements Query {
+
+	@Override
+	public Object ejecutar(Object parametro) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
