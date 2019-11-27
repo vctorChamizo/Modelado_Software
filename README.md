@@ -4,7 +4,7 @@ This project aims to create an application that helps to understand and apply th
 
 Software engineering definition:
 
-*The application of a systematic,disciplined,quantifiable approach to the development,operation and maintenance of software; that is, the application of engineering to software* — **IEEE Systems** 
+*"The application of a systematic,disciplined,quantifiable approach to the development,operation and maintenance of software; that is, the application of engineering to software"* — **IEEE Systems** 
 
 The project applies and satisfies the following features:
 
@@ -18,7 +18,7 @@ The project applies and satisfies the following features:
   
 #### 
 
-The objective of this application that manages the use of a Point of Sale Terminal in an easy and simple way for the user, through a database that contains the information of both the clients that will access the services of the application as of the products that are available for sale.
+The objective of the application that manages the use of a Point of Sale Terminal in an easy and simple way for the user, through a database that contains the information of both the clients that will access the services of the application as of the products that are available for sale.
 
 The application will have several roles that will have different permits. These roles are: administrator, client and employee.
 
@@ -44,18 +44,38 @@ The implementation of this project was carried out using:
 #### 
    
 ## Projects
-Explicacion de las diferentes versiones de los projectos
+
+Two projects have been developed with identical functionality but with differences in their architecture with the aim of implementing two different patterns. These patterns are the use of Data-Access-Object (DAO) and Java-Persistence-API (JPA) in the services and integration layer of the application.
+
+On the other hand, the presentation layer of the application has been developed with the Model-View-Controller (MVC) pattern.
+
+Next, the differences between the architectures are flashed.
+
 ### DAO-Project
+
+- Data Access Object (DAO): Allows access to the data layer.
+data, providing representations oriented to
+objects. Each module contains a DAO.
+
 ### JPA-Project
+
+   - JPA (Java Persistence API): Manage entities through
+   of the entity manager, which is the persistence manager of the
+   JPA
+
+   - Business Objects (BO): Contains a set of attributes, values, operations and relationships with other objects
+   of the business, whose objective is to shape the behavior of the business layer. Each module has an object class
+   of business.
 
 ### Setup
 
+   - The DAO prohecto is into the directory: \src\dao_project
+   - The JPA prohecto is into the directory: \src\jpa_project
 
- 
+#### 
+
 ## Author
-The project has been done to [Victor Chamizo](https://github.com/vctorChamizo).
- 
-
+The project has been carried out by [Victor Chamizo](https://github.com/vctorChamizo).
 
 #### 
 
