@@ -14,8 +14,15 @@
 ### Implementation
 The implementation of this project was carried out using:
    - **Java** to implement the application's logic and integration sections.
-   - **MySQL** to implement the data base logic.
+   - **SQL** to implement the data base logic.
    
+### Projects
+Explicacion de las diferentes versiones de los projectos
+#### DAO-Project
+#### JPA-Project
+
+### Setup
+
 
  
 ### Author
