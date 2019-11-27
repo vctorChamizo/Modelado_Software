@@ -69,8 +69,8 @@ objects. Each module contains a DAO.
 
 ### Setup
 
-   - The DAO prohecto is into the directory: \src\dao_project
-   - The JPA prohecto is into the directory: \src\jpa_project
+   - The DAO prohecto is into the directory: /src/dao_project
+   - The JPA prohecto is into the directory: /src/jpa_project
 
 #### 
 
