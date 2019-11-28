@@ -1,4 +1,4 @@
-# Software Engineering - Point Of Sale
+# Lab | Software Engineering - Point Of Sale
 
 
 ## Introduction
