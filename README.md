@@ -58,7 +58,7 @@ objects. Each module contains a DAO.
    of the business, whose objective is to shape the behavior of the business layer. Each module has an object class
    of business.
 
-### Setup
+## Project Content
    - The DAO prohecto is into the directory: /src/dao_project
    - The JPA prohecto is into the directory: /src/jpa_project
 
